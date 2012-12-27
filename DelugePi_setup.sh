@@ -281,7 +281,7 @@ while true; do
              2 "New installation, 1.3.5 stable"
              3 "New installation, Branch Master not implemented yet"
              4 "Update existing Deluge not implemented yet"
-			 5 "Remove existing Deluge installation")
+             5 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
         case $choice in
@@ -289,7 +289,7 @@ while true; do
             2) main_newinstall_deluge_stable ;;
             3) main_newinstall_deluge_master ;;
             4) main_update ;;
-			5) main_remove ;;
+            5) main_remove ;;
         esac
     else
         break
