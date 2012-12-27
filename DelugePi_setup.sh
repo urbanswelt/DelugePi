@@ -238,9 +238,9 @@ function main_newinstall_deluge_stable()
 	
 	# check out the newest stable version 1.3-stable
 	cd
-	wget -q -N $__delugestable
-	tar zxfv deluge-1.3-stable.tar.gz
-	cd deluge-1.3-stable
+	wget -q -N $__delugestablelink
+	tar zxfv $__delugestabletar
+	cd $__delugestable
 	
 	# building Deluge
 	python setup.py clean -a
@@ -269,7 +269,9 @@ function main_newinstall_deluge_stable()
 checkNeededPackages
 
 __delugeport="8112"
-__delugestable="http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz"
+__delugestablelink="http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz"
+__delugestabletar="deluge-1.3-stable.tar.gz"
+__delugestable="deluge-1.3-stable"
 __delugemaster=""
 
 if [ $(id -u) -ne 0 ]; then
