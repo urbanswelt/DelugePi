@@ -261,7 +261,7 @@ function main_newinstall_deluge_stable()
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
-	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site Password is deluge." 20 60    
+	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
 }
 
 # here starts the main script
