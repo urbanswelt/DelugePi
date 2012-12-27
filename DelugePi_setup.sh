@@ -181,7 +181,7 @@ EOF
 
 function writeDelugeNotificationPlugin()
 {
-	cat > /var/lib/deluge/.config/deluge/notifications-core.conf << _EOF_
+cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<EOF
 {
   "file": 1, 
   "format": 1
@@ -202,7 +202,7 @@ function writeDelugeNotificationPlugin()
   "smtp_pass": "yourpassword", 
   "smtp_tls": true
 }
-_EOF_
+EOF
 }
 
 function main_setdelugeport()
