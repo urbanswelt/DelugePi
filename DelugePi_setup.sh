@@ -222,7 +222,7 @@ function main_newinstall_deluge_stable()
 
 	# make sure we use the newest packages
 	apt-get update
-	apt-get upgrade -y
+	# apt-get upgrade -y
 
 	# make sure that the group/user deluge exists
 	adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
@@ -238,19 +238,19 @@ function main_newinstall_deluge_stable()
 	
 	# check out the newest stable version 1.3.5-stable with git
 	cd
-	git clone git://deluge-torrent.org/deluge.git &&
+	git clone git://deluge-torrent.org/deluge.git
 	cd ~/deluge
-	git checkout 1.3-stable &&
+	git checkout 1.3-stable
 	
 	# building Deluge
-	python setup.py clean -a &&
-	python setup.py build &&
-	python setup.py install --install-layout=deb &&
+	python setup.py clean -a
+	python setup.py build
+	python setup.py install --install-layout=deb
 	
 	# write deamon and config files
-	writeDelugeDeamon1 &&
-	writeDelugeDeamon2 &&
-	writeDelugeNotificationPlugin &&
+	writeDelugeDeamon1
+	writeDelugeDeamon2
+	writeDelugeNotificationPlugin
 	
 	# set permission and start the deluge-deamon
 	chmod 755 /etc/init.d/deluge-daemon
