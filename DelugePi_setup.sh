@@ -2,7 +2,7 @@
 # deluge-1.3.stable - install latest stable Deluge Version on Raspberry PI Server
 # latest images 2012-12-16-wheezy-raspbian from http://www.raspberrypi.org/downloads
 #
-# Last updated 2012-12-28
+# Last updated 2012-12-27
 # init
 
 function checkNeededPackages()
