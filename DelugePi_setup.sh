@@ -5,25 +5,6 @@
 # Last updated 2012-12-27
 # init
 
-sudo chmod 755 /etc/init.d/deluge-daemon
-sudo update-rc.d deluge-daemon defaults
-#sudo invoke-rc.d deluge-daemon start
-
-wget http://download.deluge-torrent.org/source/deluge-1.3.5.tar.gz
-tar zxfv deluge-1.3.5.tar.gz
-cd deluge-1.3.5
-
-#http://git.deluge-torrent.org/deluge/tree/DEPENDS
-sudo apt-get update
-sudo apt-get install python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako
-python setup.py clean -a
-python setup.py build
-sudo python setup.py install --install-layout=deb
-
-sudo invoke-rc.d deluge-daemon start
-http://raspberrypi.fritz.box:8112/
-Password deluge
-
 function checkNeededPackages()
 {
     doexit=0
