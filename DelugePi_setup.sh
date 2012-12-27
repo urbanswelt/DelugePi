@@ -240,17 +240,17 @@ function main_newinstall_deluge_stable()
 	cd
 	git clone git://deluge-torrent.org/deluge.git &&
 	cd ~/deluge
-	git checkout 1.3-stable
+	git checkout 1.3-stable &&
 	
 	# building Deluge
 	python setup.py clean -a &&
 	python setup.py build &&
-	python setup.py install --install-layout=deb
+	python setup.py install --install-layout=deb &&
 	
 	# write deamon and config files
-	writeDelugeDeamon1
-	writeDelugeDeamon2
-	writeDelugeNotificationPlugin
+	writeDelugeDeamon1 &&
+	writeDelugeDeamon2 &&
+	writeDelugeNotificationPlugin &&
 	
 	# set permission and start the deluge-deamon
 	chmod 755 /etc/init.d/deluge-daemon
