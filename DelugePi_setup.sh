@@ -1,5 +1,5 @@
 #!/bin/bash
-# deluge-1.3.5 - install latest stable Deluge Version on Raspberry PI Server
+# deluge-1.3.stable - install latest stable Deluge Version on Raspberry PI Server
 # latest images 2012-12-16-wheezy-raspbian from http://www.raspberrypi.org/downloads
 #
 # Last updated 2012-12-27
@@ -240,7 +240,7 @@ function main_newinstall_deluge_stable()
 	cd
 	wget -q -N http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz
 	tar zxfv deluge-1.3-stable.tar.gz
-	cd deluge-1.3.5
+	cd deluge-1.3-stable
 	
 	# building Deluge
 	python setup.py clean -a
