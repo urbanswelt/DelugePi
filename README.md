@@ -17,15 +17,15 @@ Then you can download the latest DelugePi setup script with
 
 ```shell
 cd
-git clone git://github.com/petrockblog/OwncloudPie.git
+git clone https://github.com/urbanswelt/DelugePi.git
 ```
 
 The script is executed with 
 
 ```shell
 cd DelugePi
-chmod +x deluge_setup.sh
-sudo ./deluge_setup.sh
+chmod +x DelugePi_setup.sh
+sudo ./DelugePi_setup.sh
 ```
 
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
