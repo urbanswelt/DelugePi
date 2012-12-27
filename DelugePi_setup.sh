@@ -237,10 +237,16 @@ function main_newinstall_deluge_stable()
 	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako
 	
 	# check out the newest stable version 1.3.5-stable with git
+	#cd
+	#git clone git://deluge-torrent.org/deluge.git
+	#cd ~/deluge
+	#git checkout 1.3-stable
+	
+	# check out the newest stable version 1.3.5
 	cd
-	git clone git://deluge-torrent.org/deluge.git
-	cd ~/deluge
-	git checkout 1.3-stable
+	wget http://download.deluge-torrent.org/source/deluge-1.3.5.tar.gz
+	tar zxfv deluge-1.3.5.tar.gz
+	cd deluge-1.3.5
 	
 	# building Deluge
 	python setup.py clean -a
