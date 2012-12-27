@@ -28,5 +28,11 @@ chmod +x DelugePi_setup.sh
 sudo ./DelugePi_setup.sh
 ```
 
+One in all Past and Copy ;-)
+
+```shell
+sudo apt-get update && sudo apt-get install -y git dialog && cd && git clone https://github.com/urbanswelt/DelugePi.git && cd DelugePi && chmod +x DelugePi_setup.sh && sudo ./DelugePi_setup.sh
+```
+
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
 
