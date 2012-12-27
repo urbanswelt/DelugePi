@@ -257,7 +257,7 @@ function main_newinstall_deluge_stable()
 	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
 	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
 	update-rc.d deluge-daemon defaults
-	sudo invoke-rc.d deluge-daemon start
+	invoke-rc.d deluge-daemon start
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
