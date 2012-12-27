@@ -281,7 +281,7 @@ while true; do
              2 "New installation, 1.3.5 stable"
              3 "New installation, Branch Master not implemented yet"
              4 "Update existing Deluge not implemented yet"
-			 5 "Remove existing Deluge installation not implemented yet")
+			 5 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
         case $choice in
