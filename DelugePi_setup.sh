@@ -15,9 +15,9 @@ function checkNeededPackages()
     fi
 }
 
-function writeDelugeDeamon1()
+function writeDelugeDaemon1()
 {
-cat > /etc/default/deluge-daemon <<EOF
+cat -A > /etc/default/deluge-daemon <<EOF
 # Configuration for /etc/init.d/deluge-daemon
 # The init.d script will only run if this variable non-empty.
 DELUGED_USER="deluge"
@@ -27,9 +27,9 @@ RUN_AT_STARTUP="YES"
 EOF
 }
 
-function writeDelugeDeamon2()
+function writeDelugeDaemon2()
 {
-cat > /etc/init.d/deluge-daemon <<EOF
+cat -A > /etc/init.d/deluge-daemon <<EOF
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          deluge-daemon
@@ -247,17 +247,20 @@ function main_newinstall_deluge_stable()
 	python setup.py build
 	python setup.py install --install-layout=deb
 	
-	# write deamon and config files
-	writeDelugeDeamon1
-	writeDelugeDeamon2
-	writeDelugeNotificationPlugin
+	# write daemon and config files
+	writeDelugeDaemon1
+	writeDelugeDaemon2
+	
 	
 	# set permission and start the deluge-deamon
 	chmod 755 /etc/init.d/deluge-daemon
-	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
-	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
 	update-rc.d deluge-daemon defaults
 	invoke-rc.d deluge-daemon start
+	
+	# setup for Plugin´s
+	writeDelugeNotificationPlugin
+	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
+	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
