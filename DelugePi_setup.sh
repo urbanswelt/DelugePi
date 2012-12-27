@@ -20,7 +20,7 @@ function writeDelugeDeamon1()
 	cat > /etc/default/deluge-daemon << _EOF_
 # Configuration for /etc/init.d/deluge-daemon
 # The init.d script will only run if this variable non-empty.
-DELUGED_USER="deluge"             # !!!CHANGE THIS!!!!
+DELUGED_USER="deluge"
 
 # Should we run at startup?
 RUN_AT_STARTUP="YES"
@@ -238,7 +238,7 @@ function main_newinstall_deluge_stable()
 	
 	# check out the newest stable version 1.3-stable
 	cd
-	wget -q -N http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz
+	wget -q -N $__delugestable
 	tar zxfv deluge-1.3-stable.tar.gz
 	cd deluge-1.3-stable
 	
@@ -269,6 +269,8 @@ function main_newinstall_deluge_stable()
 checkNeededPackages
 
 __delugeport="8112"
+__delugestable="http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz"
+__delugemaster=""
 
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo ./DelugePi_setup'\n"
