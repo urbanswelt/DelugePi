@@ -17,19 +17,19 @@ function checkNeededPackages()
 
 function writeDelugeDaemon1()
 {
-	cat > /etc/default/deluge-daemon << _EOF_
+cat > /etc/default/deluge-daemon <<'Endofmessage'
 # Configuration for /etc/init.d/deluge-daemon
 # The init.d script will only run if this variable non-empty.
 DELUGED_USER="deluge"
 
 # Should we run at startup?
 RUN_AT_STARTUP="YES"
-EOF
+Endofmessage
 }
 
 function writeDelugeDaemon2()
 {
-	cat > /etc/init.d/deluge-daemon << _EOF_
+cat > /etc/init.d/deluge-daemon <<'Endofmessage'
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          deluge-daemon
@@ -176,12 +176,12 @@ case "$1" in
 esac
 
 :
-EOF
+Endofmessage
 }
 
 function writeDelugeNotificationPlugin()
 {
-cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<EOF
+cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<'Endofmessage'
 {
   "file": 1, 
   "format": 1
@@ -202,7 +202,7 @@ cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<EOF
   "smtp_pass": "yourpassword", 
   "smtp_tls": true
 }
-EOF
+Endofmessage
 }
 
 function main_setdelugeport()
