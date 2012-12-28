@@ -17,7 +17,7 @@ function checkNeededPackages()
 
 function writeDelugeDaemon1()
 {
-cat -A > /etc/default/deluge-daemon <<EOF
+	cat > /etc/default/deluge-daemon << _EOF_
 # Configuration for /etc/init.d/deluge-daemon
 # The init.d script will only run if this variable non-empty.
 DELUGED_USER="deluge"
@@ -29,7 +29,7 @@ EOF
 
 function writeDelugeDaemon2()
 {
-cat -A > /etc/init.d/deluge-daemon <<EOF
+	cat > /etc/init.d/deluge-daemon << _EOF_
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          deluge-daemon
