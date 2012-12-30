@@ -219,7 +219,9 @@ function main_setdelugeport()
 function main_newinstall_deluge_stable()
 {
 	clear 
-
+	# remove older Version without extra step from menu
+	main_remove
+	
 	# make sure we use the newest packages
 	apt-get update
 	# apt-get upgrade -y
@@ -272,6 +274,64 @@ function main_newinstall_deluge_stable()
 	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
 }
 
+function main_newinstall_deluge_master()
+{
+	clear 
+	# remove older Version without extra step from menu
+	main_remove
+	
+	# make sure we use the newest packages
+	apt-get update
+	# apt-get upgrade -y
+
+	# make sure that the group/user deluge exists
+	adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
+	
+	# create log Folders
+	mkdir -p /var/log/deluge/daemon
+	mkdir /var/log/deluge/web
+	chmod -R 755 /var/log/deluge
+	chown -R deluge /var/log/deluge
+
+	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
+	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako
+	
+	# check out the newest stable version 1.3-stable
+	cd
+	wget -q -N $__delugemasterlink
+	tar zxfv $__delugemastertar
+	cd $__delugemaster
+	
+	# building Deluge
+	python setup.py clean -a
+	python setup.py build
+	python setup.py install --install-layout=deb
+	
+	# write daemon and config files
+	writeDelugeDaemon1
+	writeDelugeDaemon2
+	
+	
+	# set permission and start the deluge-deamon
+	chmod 755 /etc/init.d/deluge-daemon
+	update-rc.d deluge-daemon defaults
+	invoke-rc.d deluge-daemon start
+	
+	# setup for Plugin´s
+	writeDelugeNotificationPlugin
+	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
+	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
+
+	# remove install files
+	cd
+	rm $__delugemastertar
+	rm -r $__delugemaster
+	
+	# finish the script
+	myipaddress=$(hostname -I | tr -d ' ')
+	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
+}
+
 function main_remove()
 {
 	clear 
@@ -308,7 +368,9 @@ __delugeport="8112"
 __delugestablelink="http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz"
 __delugestabletar="deluge-1.3-stable.tar.gz"
 __delugestable="deluge-1.3-stable"
-__delugemaster=""
+__delugemasterlink="http://git.deluge-torrent.org/deluge/snapshot/deluge-master.tar.gz"
+__delugemastertar="deluge-master.tar.gz"
+__delugemaster="deluge-master"
 
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo ./DelugePi_setup'\n"
@@ -318,8 +380,8 @@ fi
 while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
     options=(1 "Set special Deluge Port ($__delugeport)"
-             2 "New installation, 1.3.stable"
-             3 "New installation, Branch Master not implemented yet"
+             2 "New installation, Branch 1.3.stable"
+             3 "New installation, Branch Master"
              4 "Update existing Deluge not implemented yet"
              5 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
