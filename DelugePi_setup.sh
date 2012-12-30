@@ -379,7 +379,7 @@ fi
 
 while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
-    options=(1 "Set special Deluge Port ($__delugeport)"
+    options=(1 "Set special Deluge Port ($__delugeport) not implemented yet"
              2 "New installation, Branch 1.3.stable"
              3 "New installation, Branch Master"
              4 "Update existing Deluge not implemented yet"
