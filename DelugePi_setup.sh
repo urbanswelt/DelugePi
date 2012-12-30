@@ -272,6 +272,34 @@ function main_newinstall_deluge_stable()
 	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
 }
 
+function main_remove()
+{
+	clear 
+
+	# stop the deluge-deamon
+	invoke-rc.d deluge-daemon stop
+	update-rc.d deluge-daemon remove
+	
+	# delete deluge-deamon
+	rm /etc/default/deluge-daemon
+	rm /etc/init.d/deluge-daemon
+	
+	# delete User and group
+	deluser deluge
+	
+	# delete deluge folders log and Home
+	rm -r /var/lib/deluge
+	rm -r /var/log/deluge
+	
+	# delete package from System http://dev.deluge-torrent.org/wiki/Installing/Source#RemovingFromSystem
+	rm -r /usr/lib/python2.*/dist-packages/deluge*
+	rm -r /usr/bin/deluge*
+	
+	# finish the script
+	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "Deluge was deleted from your System =( " 20 60    
+}
+
+
 # here starts the main script
 
 checkNeededPackages
@@ -293,7 +321,7 @@ while true; do
              2 "New installation, 1.3.stable"
              3 "New installation, Branch Master not implemented yet"
              4 "Update existing Deluge not implemented yet"
-             5 "Remove existing Deluge installation not implemented yet")
+             5 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
         case $choice in
