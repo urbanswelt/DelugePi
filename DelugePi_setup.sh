@@ -265,7 +265,7 @@ function main_newinstall_deluge_stable()
 	# remove install files
 	cd
 	rm $__delugestabletar
-	rm $__delugestable
+	rm -r $__delugestable
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
