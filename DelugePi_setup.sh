@@ -312,11 +312,6 @@ function main_newinstall_deluge_stable()
 	update-rc.d deluge-daemon defaults
 	invoke-rc.d deluge-daemon start
 	
-	# setup for Plugin´s
-	writeDelugeNotificationPlugin
-	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
-	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
-
 	# remove install files
 	cd
 	rm $__delugestabletar
@@ -330,7 +325,7 @@ function main_newinstall_deluge_stable()
 function main_plugin_notification()
 {
 	clear	
-	#Inpu data
+	#Input data
 	read -p "recipient for this email ? e.g yourname@gmail.com :" __noti_smtp_recipients
 	read -p "SMTP enable ? write true :" __noti_smtp_enabled
 	read -p "SMTP Port ? e.g. 25 :" __noti_smtp_port
