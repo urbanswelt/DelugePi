@@ -227,7 +227,35 @@ function first_deluge_remove()
 	# delete package from System http://dev.deluge-torrent.org/wiki/Installing/Source#RemovingFromSystem
 	rm -r /usr/lib/python2.*/dist-packages/deluge*
 	rm -r /usr/bin/deluge*
-	   
+}
+
+function apt_deluge_original_setup()
+{
+	clear 
+
+	# install all needed packages, http://dev.deluge-torrent.org/wiki/Installing/Source
+	apt-get install python python-twisted python-twisted-web python-openssl python-simplejson \
+	python-setuptools intltool python-xdg python-chardet geoip-database python-libtorrent \
+	python-notify python-pygame python-glade2 librsvg2-common xdg-utils python-mako 
+}
+
+function apt_deluge_stable_setup()
+{
+	clear 
+
+	# install all needed packages for Web Server Environment, http://git.deluge-torrent.org/deluge/tree/DEPENDS
+	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools \
+	gettext intltool python-xdg python-chardet python-libtorrent python-mako
+}
+
+function apt_deluge_master_setup()
+{
+	clear 
+
+	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
+	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools \
+	gettext intltool python-xdg python-chardet python-libtorrent python-mako subversion gcc locate \
+	g++
 }
 
 function main_setdelugeport()
@@ -261,7 +289,7 @@ function main_newinstall_deluge_stable()
 	chown -R deluge /var/log/deluge
 
 	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
-	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako
+	apt_deluge_stable_setup
 	
 	# check out the newest stable version 1.3-stable
 	cd
@@ -299,6 +327,21 @@ function main_newinstall_deluge_stable()
 	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
 }
 
+function main_plugin_notification()
+{
+	clear	
+	#Inpu data
+	read -p "recipients:" 
+	
+	# setup for Plugin
+	writeDelugeNotificationPlugin
+	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
+	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
+	
+	# finish the script
+	myipaddress=$(hostname -I | tr -d ' ')
+	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60
+}
 function main_newinstall_deluge_master()
 {
 	clear 
@@ -319,18 +362,18 @@ function main_newinstall_deluge_master()
 	#chown -R deluge /var/log/deluge
 
 	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
-	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako subversion gcc locate
+	apt_deluge_master_setup
 	
-	# check out the newest stable version 1.3-stable
-	cd
-	wget -q -N $__delugemasterlink
-	tar zxfv $__delugemastertar
-	cd $__delugemaster
+	# check out the newest master version
+	#cd
+	#wget -q -N $__delugemasterlink
+	#tar zxfv $__delugemastertar
+	#cd $__delugemaster
 	
 	# building Deluge
-	python setup.py clean -a
-	python setup.py build
-	python setup.py install --install-layout=deb
+	#python setup.py clean -a
+	#python setup.py build
+	#python setup.py install --install-layout=deb
 	
 	# write daemon and config files
 	#writeDelugeDaemon1
@@ -343,16 +386,16 @@ function main_newinstall_deluge_master()
 	#invoke-rc.d deluge-daemon start
 
 	# remove install files
-	cd
-	rm $__delugemastertar
-	rm -r $__delugemaster
+	#cd
+	#rm $__delugemastertar
+	#rm -r $__delugemaster
 	
 	# updatedb for locate deluge
-	updatedb
+	#updatedb
 	
 	# finish the script
-	myipaddress=$(hostname -I | tr -d ' ')
-	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
+	#myipaddress=$(hostname -I | tr -d ' ')
+	#dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "If everything went right, Deluge should now be available at the URL http://$myipaddress:$__delugeport. You have to finish the setup by visiting that site. Initial Password is deluge." 20 60    
 }
 
 function main_remove()
@@ -385,18 +428,20 @@ fi
 while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
     options=(1 "Set special Deluge Port ($__delugeport) not implemented yet"
-             2 "New clean installation, Branch 1.3.stable"
-             3 "New clean installation, Branch Master not implemented yet"
-             4 "Update existing Deluge not implemented yet"
-             5 "Remove existing Deluge installation")
+             2 "New clean Server installation, Branch 1.3.stable"
+             3 "New clean Server installation, Branch Master not implemented yet"
+             4 "Setup Plugin Notification not full implemented yet"
+			 5 "Update existing Deluge not implemented yet"
+             6 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
         case $choice in
             1) main_setdelugeport ;;
             2) main_newinstall_deluge_stable ;;
             3) main_newinstall_deluge_master ;;
-            4) main_update ;;
-            5) main_remove ;;
+            4) main_plugin_notification ;;
+			5) main_update ;;
+            6) main_remove ;;
         esac
     else
         break
