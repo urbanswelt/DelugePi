@@ -181,28 +181,28 @@ Endofmessage
 
 function writeDelugeNotificationPlugin()
 {
-cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<'Endofmessage'
+cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<EOF
 {
   "file": 1, 
   "format": 1
 }{
   "smtp_recipients": [
-    "yourname@gmail.com"
+    "$__noti_smtp_recipients"
   ], 
-  "smtp_enabled": true, 
+  "smtp_enabled": $__noti_smtp_enabled, 
   "subscriptions": {
     "email": [
       "TorrentFinishedEvent"
     ]
   }, 
-  "smtp_port": 25, 
-  "smtp_host": "smtp.gmail.com", 
-  "smtp_from": "yourname@gmail.com", 
-  "smtp_user": "yourname", 
-  "smtp_pass": "yourpassword", 
-  "smtp_tls": true
+  "smtp_port": $__noti_smtp_port, 
+  "smtp_host": "$__noti_smtp_host", 
+  "smtp_from": "$__noti_smtp_from", 
+  "smtp_user": "$__noti_smtp_user", 
+  "smtp_pass": "$__noti_smtp_pass", 
+  "smtp_tls": $__noti_smtp_tls
 }
-Endofmessage
+EOF
 }
 
 function first_deluge_remove()
@@ -331,7 +331,14 @@ function main_plugin_notification()
 {
 	clear	
 	#Inpu data
-	read -p "recipients:" 
+	read -p "recipient for this email ? e.g yourname@gmail.com :" __noti_smtp_recipients
+	read -p "SMTP enable ? write true :" __noti_smtp_enabled
+	read -p "SMTP Port ? e.g. 25 :" __noti_smtp_port
+	read -p "SMTP Host ? e.g. smtp.gmail.com :" __noti_smtp_host
+	read -p "send From ? e.g. yourname@gmail.com :" __noti_smtp_from
+	read -p "SMTP User ? e.g. yourname :" __noti_smtp_user
+	read -p "SMTP password ? e.g. yourpassword :" __noti_smtp_pass
+	read -p "enable TLS ? write true :" __noti_smtp_tls 
 	
 	# setup for Plugin
 	writeDelugeNotificationPlugin
@@ -378,7 +385,6 @@ function main_newinstall_deluge_master()
 	# write daemon and config files
 	#writeDelugeDaemon1
 	#writeDelugeDaemon2
-	
 	
 	# set permission and start the deluge-deamon
 	#chmod 755 /etc/init.d/deluge-daemon
@@ -431,7 +437,7 @@ while true; do
              2 "New clean Server installation, Branch 1.3.stable"
              3 "New clean Server installation, Branch Master not implemented yet"
              4 "Setup Plugin Notification not full implemented yet"
-			 5 "Update existing Deluge not implemented yet"
+             5 "Update existing Deluge not implemented yet"
              6 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
@@ -440,7 +446,7 @@ while true; do
             2) main_newinstall_deluge_stable ;;
             3) main_newinstall_deluge_master ;;
             4) main_plugin_notification ;;
-			5) main_update ;;
+            5) main_update ;;
             6) main_remove ;;
         esac
     else
