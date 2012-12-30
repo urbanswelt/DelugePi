@@ -285,10 +285,10 @@ fi
 while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
     options=(1 "Set special Deluge Port ($__delugeport)"
-             2 "New installation, 1.3.5 stable"
+             2 "New installation, 1.3.stable"
              3 "New installation, Branch Master not implemented yet"
              4 "Update existing Deluge not implemented yet"
-             5 "Remove existing Deluge installation")
+             5 "Remove existing Deluge installation not implemented yet")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
         case $choice in
