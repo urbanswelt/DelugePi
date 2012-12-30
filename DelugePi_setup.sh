@@ -303,23 +303,23 @@ function main_newinstall_deluge_master()
 {
 	clear 
 	# remove older Version without extra step from menu
-	first_deluge_remove
+	#first_deluge_remove
 	
 	# make sure we use the newest packages
 	apt-get update
 	# apt-get upgrade -y
 
 	# make sure that the group/user deluge exists
-	adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
+	#adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
 	
 	# create log Folders
-	mkdir -p /var/log/deluge/daemon
-	mkdir /var/log/deluge/web
-	chmod -R 755 /var/log/deluge
-	chown -R deluge /var/log/deluge
+	#mkdir -p /var/log/deluge/daemon
+	#mkdir /var/log/deluge/web
+	#chmod -R 755 /var/log/deluge
+	#chown -R deluge /var/log/deluge
 
 	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
-	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako
+	apt-get install -y python python-twisted python-twisted-web python-openssl python-setuptools gettext intltool python-xdg python-chardet python-libtorrent python-mako subversion gcc locate
 	
 	# check out the newest stable version 1.3-stable
 	cd
@@ -333,24 +333,22 @@ function main_newinstall_deluge_master()
 	python setup.py install --install-layout=deb
 	
 	# write daemon and config files
-	writeDelugeDaemon1
-	writeDelugeDaemon2
+	#writeDelugeDaemon1
+	#writeDelugeDaemon2
 	
 	
 	# set permission and start the deluge-deamon
-	chmod 755 /etc/init.d/deluge-daemon
-	update-rc.d deluge-daemon defaults
-	invoke-rc.d deluge-daemon start
-	
-	# setup for Plugin´s
-	writeDelugeNotificationPlugin
-	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
-	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
+	#chmod 755 /etc/init.d/deluge-daemon
+	#update-rc.d deluge-daemon defaults
+	#invoke-rc.d deluge-daemon start
 
 	# remove install files
 	cd
 	rm $__delugemastertar
 	rm -r $__delugemaster
+	
+	# updatedb for locate deluge
+	updatedb
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
@@ -388,7 +386,7 @@ while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
     options=(1 "Set special Deluge Port ($__delugeport) not implemented yet"
              2 "New clean installation, Branch 1.3.stable"
-             3 "New clean installation, Branch Master"
+             3 "New clean installation, Branch Master not implemented yet"
              4 "Update existing Deluge not implemented yet"
              5 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
