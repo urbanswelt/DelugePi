@@ -261,6 +261,11 @@ function main_newinstall_deluge_stable()
 	writeDelugeNotificationPlugin
 	chmod 660 /var/lib/deluge/.config/deluge/notifications-core.conf
 	chown deluge /var/lib/deluge/.config/deluge/notifications-core.conf
+
+	# remove install files
+	cd
+	rm $__delugestabletar
+	rm $__delugestable
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
