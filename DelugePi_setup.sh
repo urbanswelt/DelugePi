@@ -205,6 +205,31 @@ cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<'Endofmessage'
 Endofmessage
 }
 
+function first_deluge_remove()
+{
+	clear 
+
+	# stop the deluge-deamon
+	invoke-rc.d deluge-daemon stop
+	update-rc.d deluge-daemon remove
+	
+	# delete deluge-deamon
+	rm /etc/default/deluge-daemon
+	rm /etc/init.d/deluge-daemon
+	
+	# delete User and group
+	deluser deluge
+	
+	# delete deluge folders log and Home
+	rm -r /var/lib/deluge
+	rm -r /var/log/deluge
+	
+	# delete package from System http://dev.deluge-torrent.org/wiki/Installing/Source#RemovingFromSystem
+	rm -r /usr/lib/python2.*/dist-packages/deluge*
+	rm -r /usr/bin/deluge*
+	   
+}
+
 function main_setdelugeport()
 {
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --inputbox "Please enter the Port for your Deluge Web UI." 22 76 16)
@@ -220,7 +245,7 @@ function main_newinstall_deluge_stable()
 {
 	clear 
 	# remove older Version without extra step from menu
-	main_remove
+	first_deluge_remove
 	
 	# make sure we use the newest packages
 	apt-get update
@@ -278,7 +303,7 @@ function main_newinstall_deluge_master()
 {
 	clear 
 	# remove older Version without extra step from menu
-	main_remove
+	first_deluge_remove
 	
 	# make sure we use the newest packages
 	apt-get update
@@ -334,31 +359,13 @@ function main_newinstall_deluge_master()
 
 function main_remove()
 {
-	clear 
-
-	# stop the deluge-deamon
-	invoke-rc.d deluge-daemon stop
-	update-rc.d deluge-daemon remove
-	
-	# delete deluge-deamon
-	rm /etc/default/deluge-daemon
-	rm /etc/init.d/deluge-daemon
-	
-	# delete User and group
-	deluser deluge
-	
-	# delete deluge folders log and Home
-	rm -r /var/lib/deluge
-	rm -r /var/log/deluge
-	
-	# delete package from System http://dev.deluge-torrent.org/wiki/Installing/Source#RemovingFromSystem
-	rm -r /usr/lib/python2.*/dist-packages/deluge*
-	rm -r /usr/bin/deluge*
+	clear
+	# remove older Version
+	first_deluge_remove
 	
 	# finish the script
 	dialog --backtitle "urbanswelt.de - DelugePi Setup." --msgbox "Deluge was deleted from your System =( " 20 60    
 }
-
 
 # here starts the main script
 
@@ -380,8 +387,8 @@ fi
 while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
     options=(1 "Set special Deluge Port ($__delugeport) not implemented yet"
-             2 "New installation, Branch 1.3.stable"
-             3 "New installation, Branch Master"
+             2 "New clean installation, Branch 1.3.stable"
+             3 "New clean installation, Branch Master"
              4 "Update existing Deluge not implemented yet"
              5 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
