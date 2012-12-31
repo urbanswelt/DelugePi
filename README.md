@@ -1,6 +1,4 @@
-!!! Alpha Version don´t use it !!!
 ===========
-
 DelugePi
 ===========
 
