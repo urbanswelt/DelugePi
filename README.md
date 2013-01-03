@@ -1,15 +1,4 @@
-<pre>
-   .~~.   .~~.
-  '. \ ' ' / .'
-   .~ .~~~..~.
-  : .~.'~'.~. :
- ~ (   ) (   ) ~
-( : '~'.~.'~' : )
- ~ .~ (   ) ~. ~
-  (  : '~' :  ) Raspberry Pi
-   '~ .~~~. ~'
-       '~'
-</pre> [ASCII] [1]
+
 ===========
 DelugePi
 ===========
@@ -18,6 +7,7 @@ Shell script for installing and updating Deluge Torrent on the Raspberry Pi. The
 
 This script was tested on the Raspbian distribution from 2012-12-16-wheezy-raspbian with Deluge Torrent 1.3.5 stable.
 
+![Terminal](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.PNG)
 
 Make sure that Git and Dialog is installed:
 
@@ -60,5 +50,3 @@ Run the Setup Steps from the Script after that -->
 now is the Plugin activated !
 
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
-[1]: http://www.raspberrypi.org/phpBB3/viewtopic.php?p=78678        "ASCII"
-![Terminal](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.PNG)
