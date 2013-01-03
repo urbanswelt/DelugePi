@@ -66,3 +66,6 @@ For more information visit the blog at http://urbanswelt.de or the repository at
 ![My image2](/urbanswelt/DelugePi/tree/master/img/terminal.JPG)
 
 url : https://github.com/urbanswelt/DelugePi/blob/master/img/terminal.JPG
+
+![solarized palette](https://github.com/altercation/solarized/raw/master/img/solarized-palette.png)
+![solarized palette](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.png)
