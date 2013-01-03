@@ -62,4 +62,4 @@ now is the Plugin activated !
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
 [1]: http://www.raspberrypi.org/phpBB3/viewtopic.php?p=78678        "ASCII"
 
-![My image](urbanswelt.github.com/DelugePi/img/Terminal.jpg)
+![My image](/DelugePi/img/Terminal.jpg)
