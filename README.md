@@ -61,14 +61,3 @@ now is the Plugin activated !
 
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
 [1]: http://www.raspberrypi.org/phpBB3/viewtopic.php?p=78678        "ASCII"
-
-
-Crazy linking action
---------------------
-
-I get 10 times more traffic from [Google] [4] than from
-[Yahoo] [2] or [MSN] [3].
-
-  [4]: http://google.com/        "Google"
-  [2]: http://search.yahoo.com/  "Yahoo Search"
-  [3]: http://search.msn.com/    "MSN Search"
