@@ -61,11 +61,4 @@ now is the Plugin activated !
 
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
 [1]: http://www.raspberrypi.org/phpBB3/viewtopic.php?p=78678        "ASCII"
-
-![My image](/urbanswelt/DelugePi/img/terminal.JPG)
-![My image2](/urbanswelt/DelugePi/tree/master/img/terminal.JPG)
-
-url : https://github.com/urbanswelt/DelugePi/blob/master/img/terminal.JPG
-
-![solarized palette](https://github.com/altercation/solarized/raw/master/img/solarized-palette.png)
-![solarized palette](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.PNG)
+![Terminal](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.PNG)
