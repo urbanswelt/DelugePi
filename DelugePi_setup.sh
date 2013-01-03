@@ -707,11 +707,11 @@ while true; do
     cmd=(dialog --backtitle "urbanswelt.de - DelugePi Setup." --menu "Choose task." 22 76 16)
     options=(1 "Set special Deluge Port ($__delugeport) not implemented yet"
              2 "New clean Server installation, Branch 1.3.stable"
-	    3 "New clean Standard installation, Branch 1.3.stable"
+             3 "New clean Standard installation, Branch 1.3.stable"
              4 "New clean Development installation, Branch Master with debug log"
              5 "Setup Plugin Notification"
              6 "Update existing Deluge 1.3.stable Branch"
-	    7 "Update existing Deluge Master Branch"
+             7 "Update existing Deluge Master Branch"
              8 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
     if [ "$choice" != "" ]; then
@@ -722,7 +722,7 @@ while true; do
             4) main_newinstall_deluge_master ;;
             5) main_plugin_notification ;;
             6) main_update_stable ;;
-	   7) main_update_master ;;
+            7) main_update_master ;;
             8) main_remove ;;
         esac
     else
