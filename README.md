@@ -64,3 +64,5 @@ For more information visit the blog at http://urbanswelt.de or the repository at
 
 ![My image](/urbanswelt/DelugePi/img/terminal.JPG)
 ![My image2](/urbanswelt/DelugePi/tree/master/img/terminal.JPG)
+
+url : https://github.com/urbanswelt/DelugePi/blob/master/img/terminal.JPG
