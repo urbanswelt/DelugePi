@@ -63,3 +63,4 @@ For more information visit the blog at http://urbanswelt.de or the repository at
 [1]: http://www.raspberrypi.org/phpBB3/viewtopic.php?p=78678        "ASCII"
 
 ![My image](/urbanswelt/DelugePi/img/terminal.JPG)
+![My image2](/urbanswelt/DelugePi/tree/master/img/terminal.JPG)
