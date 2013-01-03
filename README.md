@@ -1,3 +1,15 @@
+<pre>
+   .~~.   .~~.
+  '. \ ' ' / .'
+   .~ .~~~..~.
+  : .~.'~'.~. :
+ ~ (   ) (   ) ~
+( : '~'.~.'~' : )
+ ~ .~ (   ) ~. ~
+  (  : '~' :  ) Raspberry Pi
+   '~ .~~~. ~'
+       '~'
+</pre> [ASCII] [1]
 ===========
 DelugePi
 ===========
@@ -48,4 +60,4 @@ Run the Setup Steps from the Script after that -->
 now is the Plugin activated !
 
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
-
+[1]: http://www.raspberrypi.org/phpBB3/viewtopic.php?p=78678        "ASCII"
