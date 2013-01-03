@@ -227,6 +227,10 @@ function first_deluge_remove()
 	# delete package from System http://dev.deluge-torrent.org/wiki/Installing/Source#RemovingFromSystem
 	rm -r /usr/lib/python2.*/dist-packages/deluge*
 	rm -r /usr/bin/deluge*
+	
+	# delete desktop files debian 7
+	rm /usr/share/app-install/desktop/deluge.desktop
+	rm /usr/share/app-install/icons/deluge.png
 }
 
 function apt_deluge_original_setup()
