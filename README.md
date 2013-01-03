@@ -35,5 +35,17 @@ One in all Past and Copy ;-)
 sudo apt-get update && sudo apt-get install -y git dialog && cd && git clone https://github.com/urbanswelt/DelugePi.git && cd DelugePi && chmod +x DelugePi_setup.sh && sudo ./DelugePi_setup.sh
 ```
 
+After the installation you can activate the Plugin "Notifications".
+Run the Setup Steps from the Script after that -->
+
+1. open the webui
+2. go to Preferences
+3. Plugin
+4. Check Notifications
+5. Push Button OK
+6. Go to Connection Manager and stop/start the deamon
+
+now is the Plugin activated !
+
 For more information visit the blog at http://urbanswelt.de or the repository at https://github.com/urbanswelt/DelugePi .
 

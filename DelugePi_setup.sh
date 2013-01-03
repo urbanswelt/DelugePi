@@ -431,7 +431,7 @@ while true; do
     options=(1 "Set special Deluge Port ($__delugeport) not implemented yet"
              2 "New clean Server installation, Branch 1.3.stable"
              3 "New clean Server installation, Branch Master not implemented yet"
-             4 "Setup Plugin Notification not full implemented yet"
+             4 "Setup Plugin Notification"
              5 "Update existing Deluge not implemented yet"
              6 "Remove existing Deluge installation")
     choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)    
