@@ -68,4 +68,4 @@ For more information visit the blog at http://urbanswelt.de or the repository at
 url : https://github.com/urbanswelt/DelugePi/blob/master/img/terminal.JPG
 
 ![solarized palette](https://github.com/altercation/solarized/raw/master/img/solarized-palette.png)
-![solarized palette](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.png)
+![solarized palette](https://github.com/urbanswelt/DelugePi/raw/master/img/terminal.PNG)
