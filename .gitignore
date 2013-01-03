@@ -1,5 +1,7 @@
 img/*
-
+img/*.PNG
+img/*.GIF
+img/*.JPG
 
 #################
 ## Eclipse
