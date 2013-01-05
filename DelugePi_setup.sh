@@ -357,6 +357,19 @@ cat > /var/lib/deluge/.config/deluge/notifications-core.conf <<EOF
 EOF
 }
 
+function writeDelugeLabelPlugin()
+{
+cat > /var/lib/deluge/.config/deluge/label.conf <<'Endofmessage'
+{
+  "file": 1, 
+  "format": 1
+}{
+  "labels": {}, 
+  "torrent_labels": {}
+}
+Endofmessage
+}
+
 function first_deluge_remove()
 {
 	clear 
