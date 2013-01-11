@@ -437,6 +437,21 @@ function main_setdelugeport()
     fi  
 }
 
+function deluge_build_debian()
+{
+	# build with debian depen.
+	python setup.py clean -a &&
+	python setup.py build &&
+	python setup.py install --install-layout=deb &&
+}
+
+function deluge_checkout()
+{
+	# check out the deluge project
+	cd
+	git clone git://deluge-torrent.org/deluge.git &&
+}
+
 function main_newinstall_deluge_stable_serv()
 {
 	clear 
@@ -445,7 +460,6 @@ function main_newinstall_deluge_stable_serv()
 	
 	# make sure we use the newest packages
 	apt-get update
-	# apt-get upgrade -y
 
 	# make sure that the group/user deluge exists
 	adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
@@ -459,31 +473,26 @@ function main_newinstall_deluge_stable_serv()
 	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
 	apt_deluge_stable_setup
 	
-	# check out the newest stable version 1.3-stable
-	cd
-	wget -q -N $__delugestablelink
-	tar zxfv $__delugestabletar
-	cd $__delugestable
+	# checkout the newest stable version 1.3-stable
+	deluge_checkout
+	cd $__delugefolder
+	git checkout $__delugestable &&
 	
 	# building Deluge
-	python setup.py clean -a
-	python setup.py build
-	python setup.py install --install-layout=deb
+	deluge_build_debian
 	
 	# write daemon and config files
 	writeDelugeDaemon1
 	writeDelugeDaemon2
-	
 	
 	# set permission and start the deluge-deamon
 	chmod 755 /etc/init.d/deluge-daemon
 	update-rc.d deluge-daemon defaults
 	invoke-rc.d deluge-daemon start
 	
-	# remove install files
+	# remove install files and folders
 	cd
-	rm $__delugestabletar
-	rm -r $__delugestable
+	rm -r $__delugefolder
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
@@ -498,7 +507,6 @@ function main_newinstall_deluge_stable_org()
 	
 	# make sure we use the newest packages
 	apt-get update
-	# apt-get upgrade -y
 
 	# make sure that the group/user deluge exists
 	adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
@@ -512,16 +520,13 @@ function main_newinstall_deluge_stable_org()
 	# install all needed packages, http://git.deluge-torrent.org/deluge/tree/DEPENDS
 	apt_deluge_original_setup
 	
-	# check out the newest stable version 1.3-stable
-	cd
-	wget -q -N $__delugestablelink
-	tar zxfv $__delugestabletar
-	cd $__delugestable
+	# check out the newest stable version 1.3-stable with git
+	deluge_checkout
+	cd $__delugefolder
+	git checkout $__delugestable &&
 	
 	# building Deluge
-	python setup.py clean -a
-	python setup.py build
-	python setup.py install --install-layout=deb
+	deluge_build_debian
 	
 	# write daemon and config files
 	writeDelugeDaemon1
@@ -533,10 +538,9 @@ function main_newinstall_deluge_stable_org()
 	update-rc.d deluge-daemon defaults
 	invoke-rc.d deluge-daemon start
 	
-	# remove install files
+	# remove install files and folders
 	cd
-	rm $__delugestabletar
-	rm -r $__delugestable
+	rm -r $__delugefolder
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
@@ -551,7 +555,6 @@ function main_newinstall_deluge_master()
 	
 	# make sure we use the newest packages
 	apt-get update
-	# apt-get upgrade -y
 
 	# make sure that the group/user deluge exists
 	adduser --disabled-password --system --home /var/lib/deluge --gecos "WebBased Deluge Server" --group deluge
@@ -566,16 +569,12 @@ function main_newinstall_deluge_master()
 	apt_deluge_original_setup
 	apt_deluge_master_setup
 	
-	# check out the newest master version
-	cd
-	wget -q -N $__delugemasterlink
-	tar zxfv $__delugemastertar
-	cd $__delugemaster
+	# check out the latest master version with git
+	deluge_checkout
+	cd $__delugefolder
 	
 	# building Deluge
-	python setup.py clean -a
-	python setup.py build
-	python setup.py install --install-layout=deb
+	deluge_build_debian
 	
 	# write daemon and config files
 	writeDelugeDaemon1
@@ -586,10 +585,9 @@ function main_newinstall_deluge_master()
 	update-rc.d deluge-daemon defaults
 	invoke-rc.d deluge-daemon start
 
-	# remove install files
+	# remove install files and folders
 	cd
-	rm $__delugemastertar
-	rm -r $__delugemaster
+	rm -r $__delugefolder
 	
 	# updatedb for locate deluge
 	updatedb
@@ -625,35 +623,23 @@ function main_plugin_notification()
 function main_update_stable()
 {
 	clear
-	# check out the newest stable version 1.3-stable with wget
-	#cd
-	#wget -q -N $__delugestablelink
-	#tar zxfv $__delugestabletar
-	#cd $__delugestable
-	
 	# check out the newest stable version 1.3-stable with git
-	cd
-	git clone git://deluge-torrent.org/deluge.git
-	cd deluge
-	git checkout 1.3-stable
-	git status
+	deluge_checkout
+	cd $__delugefolder
+	git checkout $__delugestable &&
 	
 	# stop deluge-deamon
-	invoke-rc.d deluge-daemon stop
+	invoke-rc.d deluge-daemon stop &&
 	
 	# building Deluge
-	python setup.py clean -a
-	python setup.py build
-	python setup.py install --install-layout=deb
+	deluge_build_debian
 	
 	# start deluge-deamon
-	invoke-rc.d deluge-daemon start
+	invoke-rc.d deluge-daemon start &&
 	
-	# remove install files
+	# remove install files and folders
 	cd
-	#rm $__delugestabletar
-	#rm -r $__delugestable
-	rm -r deluge
+	rm -r $__delugefolder
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
@@ -663,31 +649,22 @@ function main_update_stable()
 function main_update_master()
 {
 	clear
-	# check out the newest master version
-	cd
-	wget -q -N $__delugemasterlink
-	tar zxfv $__delugemastertar
-	cd $__delugemaster
+	# check out the latest master version with git
+	deluge_checkout
+	cd $__delugefolder
 	
 	# stop deluge-deamon
-	invoke-rc.d deluge-daemon stop
+	invoke-rc.d deluge-daemon stop &&
 	
 	# building Deluge
-	python setup.py clean -a
-	python setup.py build
-	python setup.py install --install-layout=deb
-	
-	# write daemon and config files
-	writeDelugeDaemon1
-	writeDelugeDaemon2
+	deluge_build_debian
 	
 	# start deluge-deamon
-	invoke-rc.d deluge-daemon start
+	invoke-rc.d deluge-daemon start &&
 
-	# remove install files
+	# remove install files and folders
 	cd
-	rm $__delugemastertar
-	rm -r $__delugemaster
+	rm -r $__delugefolder
 	
 	# updatedb for locate deluge
 	updatedb
@@ -712,12 +689,9 @@ function main_remove()
 checkNeededPackages
 
 __delugeport="8112"
-__delugestablelink="http://git.deluge-torrent.org/deluge/snapshot/deluge-1.3-stable.tar.gz"
-__delugestabletar="deluge-1.3-stable.tar.gz"
-__delugestable="deluge-1.3-stable"
-__delugemasterlink="http://git.deluge-torrent.org/deluge/snapshot/deluge-master.tar.gz"
-__delugemastertar="deluge-master.tar.gz"
-__delugemaster="deluge-master"
+__delugestable="1.3-stable"
+__delugemaster="master"
+__delugefolder="deluge"
 
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo ./DelugePi_setup'\n"
