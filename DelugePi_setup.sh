@@ -437,13 +437,13 @@ function main_setdelugeport()
     fi  
 }
 
-function deluge_build_debian()
-{
-	# build with debian depen.
-	python setup.py clean -a &&
-	python setup.py build &&
-	python setup.py install --install-layout=deb &&
-}
+#function deluge_build_debian()
+#{
+#	# build with debian depen.
+#	python setup.py clean -a &&
+#	python setup.py build &&
+#	python setup.py install --install-layout=deb &&
+#}
 
 function deluge_checkout()
 {
