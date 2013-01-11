@@ -625,11 +625,18 @@ function main_plugin_notification()
 function main_update_stable()
 {
 	clear
-	# check out the newest stable version 1.3-stable
+	# check out the newest stable version 1.3-stable with wget
+	#cd
+	#wget -q -N $__delugestablelink
+	#tar zxfv $__delugestabletar
+	#cd $__delugestable
+	
+	# check out the newest stable version 1.3-stable with git
 	cd
-	wget -q -N $__delugestablelink
-	tar zxfv $__delugestabletar
-	cd $__delugestable
+	git clone git://deluge-torrent.org/deluge.git
+	cd deluge
+	git checkout 1.3-stable
+	git status
 	
 	# stop deluge-deamon
 	invoke-rc.d deluge-daemon stop
@@ -644,8 +651,9 @@ function main_update_stable()
 	
 	# remove install files
 	cd
-	rm $__delugestabletar
-	rm -r $__delugestable
+	#rm $__delugestabletar
+	#rm -r $__delugestable
+	rm -r deluge
 	
 	# finish the script
 	myipaddress=$(hostname -I | tr -d ' ')
