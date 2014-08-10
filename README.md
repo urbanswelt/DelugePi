@@ -5,7 +5,7 @@ DelugePi
 
 Shell script for installing and updating Deluge Torrent on the Raspberry Pi. The script either performs a new installation of the newest stable Deluge release or, if already installed, performs an upgrade to the newest release.
 
-![Deluge](/img/deluge_web_ui.PNG)
+![Deluge](img/deluge_web_ui.PNG)
 
 This script was tested on the Raspbian distribution from 2012-12-16-wheezy-raspbian with Deluge Torrent 1.3.5 stable.
 
